@@ -9,6 +9,7 @@ resource "azurerm_storage_account" "main" {
   account_replication_type = "LRS"
   account_kind             = "StorageV2"
   min_tls_version          = "TLS1_2"
+  shared_access_key_enabled = true
   network_rules {
     bypass         = ["AzureServices"]
     default_action = "Allow"
