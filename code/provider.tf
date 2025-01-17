@@ -6,6 +6,10 @@ terraform {
       source = "hashicorp/azurerm"
       version = "4.14.0"
     }
+    azapi = {
+      source  = "Azure/azapi"
+      version = ">= 1.14.0, < 3.0.0"
+    }
   }
 }
 
@@ -18,4 +22,9 @@ provider "azurerm" {
       recover_soft_deleted_secrets          = true
     }
   }
+}
+
+provider "azapi" {
+
+  subscription_id = var.subscription_id
 }

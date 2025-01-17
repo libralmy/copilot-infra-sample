@@ -23,3 +23,18 @@ resource "azurerm_container_app" "main" {
     }
   }
 }
+
+module "private_network" {
+  source = "../private-network"
+  resource_group_name = var.resource_group_name
+  resource_id = azurerm_container_app_environment.main.id
+  subnet_id = var.subnet_id
+  vnet_id = var.vnet_id
+  prefix = var.prefix
+  resource_type = "ac"
+  subresource_name = "managedEnvironment"
+  # PE for ca env is in preview, so we will not create it by default
+  request_pe = false
+  static_ip_address = azurerm_container_app_environment.main.static_ip_address
+}
+

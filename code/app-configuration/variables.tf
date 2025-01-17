@@ -32,3 +32,15 @@ variable "prefix" {
 #   description = "value of the key vault uri"
   
 # }
+
+variable "subnet_id" {
+  type        = string
+  description = "Subnet ID"
+  
+}
+
+variable "vnet_id" {
+  type        = string
+  description = "Vnet ID"
+  
+}

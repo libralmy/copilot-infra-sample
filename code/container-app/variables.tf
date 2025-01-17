@@ -15,3 +15,15 @@ variable "prefix" {
   description = "Prefix for all resources"
   
 }
+
+variable "vnet_id" {
+  type        = string
+  description = "VNET ID"
+  
+}
+
+variable "subnet_id" {
+  type        = string
+  description = "Subnet ID"
+  
+}
