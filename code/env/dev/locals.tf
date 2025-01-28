@@ -9,4 +9,6 @@ locals {
     }
   }
 
+  path = path.module
+
 }

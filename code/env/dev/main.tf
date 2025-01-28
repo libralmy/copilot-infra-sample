@@ -6,18 +6,21 @@ resource "azurerm_resource_group" "main" {
 module "network" {
   source              = "./network"
   resource_group_name = azurerm_resource_group.main.name
+  depends_on = [ azurerm_resource_group.main ]
 
 }
 
 module "law" {
-  source              = "./log-analystics"
+  source              = "../../modules/log-analystics"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   prefix              = var.environment_prefix
+  depends_on = [ azurerm_resource_group.main ]
+
 }
 
 module "storage" {
-  source              = "./storage"
+  source              = "../../modules/storage"
   resource_group_name = azurerm_resource_group.main.name
   prefix              = "${var.environment_prefix}-${var.suffix}"
   vnet_id = module.network.vnet_id
@@ -25,35 +28,39 @@ module "storage" {
   providers = {
     azapi = azapi
   }
+  depends_on = [ module.network ]
 }
 
 module "acr" {
-  source              = "./acr"
+  source              = "../../modules/acr"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   prefix              = "${var.environment_prefix}-${var.suffix}"
   vnet_id = module.network.vnet_id
   subnet_id = module.network.subnet_id
+  depends_on = [ module.network ]
 }
 
 module "appinsights" {
-  source              = "./app-insights"
+  source              = "../../modules/app-insights"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   prefix              = var.environment_prefix
   law_workspace_id    = module.law.id
+  depends_on = [ module.law ]
 }
 
 module "kv" {
-  source              = "./key-vault"
+  source              = "../../modules/key-vault"
   resource_group_name = azurerm_resource_group.main.name
   prefix              = "${var.environment_prefix}-${var.suffix}"
   vnet_id = module.network.vnet_id
   subnet_id = module.network.subnet_id
+  depends_on = [ module.network ]
 }
 
 module "appconfig" {
-  source              = "./app-configuration"
+  source              = "../../modules/app-configuration"
   resource_group_name = azurerm_resource_group.main.name
   prefix              = "${var.environment_prefix}-${var.suffix}"
   key_vault_id        = module.kv.keyvault_id
@@ -62,24 +69,25 @@ module "appconfig" {
   key_vault_identity_name = module.kv.keyvault_identity_name
   vnet_id = module.network.vnet_id
   subnet_id = module.network.subnet_id
-  depends_on = [ module.kv ]
+  depends_on = [ module.network, module.kv ]
 }
 
 module "cosmosdb" {
-  source              = "./cosmos-db"
+  source              = "../../modules/cosmos-db"
   resource_group_name = azurerm_resource_group.main.name
   prefix              = "${var.environment_prefix}${var.suffix}"
   throughput          = 400
   vnet_id = module.network.vnet_id
   subnet_id           = module.network.subnet_id
+  depends_on = [ module.network ]
 }
 
 module "containerapp" {
-  source              = "./container-app"
+  source              = "../../modules/container-app"
   resource_group_name = azurerm_resource_group.main.name
   prefix              = "${var.environment_prefix}-${var.suffix}"
   law_workspace_id    = module.law.id
   vnet_id = module.network.vnet_id
   subnet_id = module.network.subnet_id
-  
+  depends_on = [ module.network, module.law ]
 }
