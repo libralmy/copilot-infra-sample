@@ -1,13 +1,13 @@
 variable "environment_prefix" {
   description = "The suffix to add to the resource group name."
   type = string
-  default = "testdev-"
+  default = "atestdev-"
   
 }
 variable "suffix" {
   description = "The suffix to add to the resource group name."
   type = string
-  default = "emily"
+  default = "aemily"
   
 }
 

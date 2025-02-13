@@ -19,6 +19,50 @@ resource "azurerm_storage_account" "main" {
   }
 }
 
+resource "azapi_resource" "containers" {
+
+  type = "Microsoft.Storage/storageAccounts/blobServices/containers@2023-01-01"
+  name = "testcontainer"
+  parent_id                 = "${azurerm_storage_account.main.id}/blobServices/default"
+  schema_validation_enabled = false
+  depends_on = [ azurerm_storage_account.main ]
+}
+
+resource "azurerm_private_endpoint" "storage_containers" {
+  name                = "${azurerm_storage_account.main.name}-pe-containers"
+  location            = data.azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
+  subnet_id           = var.subnet_id
+
+  private_service_connection {
+    name                           = "${azurerm_storage_account.main.name}-psc-containers"
+    private_connection_resource_id = azurerm_storage_account.main.id
+    is_manual_connection           = false
+    subresource_names              = ["blob"]
+  }
+}
+
+resource "azurerm_private_dns_zone" "storage_containers" {
+  name                = "privatelink.container.core.windows.net"
+  resource_group_name = data.azurerm_resource_group.main.name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "storage_containers" {
+  name                  = "${var.resource_group_name}-vnet-link-containers"
+  resource_group_name   = data.azurerm_resource_group.main.name
+  private_dns_zone_name = azurerm_private_dns_zone.storage_containers.name
+  virtual_network_id    = var.vnet_id
+}
+
+resource "azurerm_private_dns_a_record" "storage_containers" {
+  name                = azurerm_storage_account.main.name
+  zone_name           = azurerm_private_dns_zone.storage_containers.name
+  resource_group_name = data.azurerm_resource_group.main.name
+  ttl                 = 300
+  records             = [azurerm_private_endpoint.storage_containers.private_service_connection[0].private_ip_address]
+}
+
+
 
 resource "azapi_resource" "queues" {
   type = "Microsoft.Storage/storageAccounts/queueServices/queues@2023-05-01"
@@ -68,6 +112,20 @@ resource "azurerm_private_dns_a_record" "storage" {
   resource_group_name = data.azurerm_resource_group.main.name
   ttl                 = 300
   records             = [azurerm_private_endpoint.storage_queue.private_service_connection[0].private_ip_address]
+}
+
+resource "azapi_resource" "share" {
+  type = "Microsoft.Storage/storageAccounts/fileServices/shares@2023-01-01"
+  name = "testshare"
+  parent_id                 = "${azurerm_storage_account.main.id}/fileServices/default"
+  schema_validation_enabled = false
+  depends_on = [ azurerm_storage_account.main ]
+}
+
+resource "azurerm_storage_share" "this" {
+  name                 = "testshareazurerm"
+  quota                = 10
+  storage_account_id = azurerm_storage_account.main.id
 }
 
 # resource "azurerm_private_endpoint" "private_endpoint" {

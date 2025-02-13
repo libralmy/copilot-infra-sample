@@ -11,3 +11,10 @@ output "storage_primary_access_key" {
   sensitive = true
   value     = azurerm_storage_account.main.primary_access_key
 }
+output "fileshare" {
+  value = azapi_resource.share.name
+}
+
+output "fileshare_azurerm" {
+  value = azurerm_storage_share.this.name
+}

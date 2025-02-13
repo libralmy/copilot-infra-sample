@@ -1,0 +1,164 @@
+id: /subscriptions/0dd281b7-e4d8-4f02-a4b4-18739bb6d62b/resourceGroups/emily-container-apps-group/providers/Microsoft.App/containerapps/my-container-app
+identity:
+  type: None
+location: East US 2
+name: my-container-app
+properties:
+  configuration:
+    activeRevisionsMode: Single
+    dapr: null
+    ingress:
+      additionalPortMappings: null
+      allowInsecure: false
+      clientCertificateMode: null
+      corsPolicy: null
+      customDomains: null
+      exposedPort: 0
+      external: true
+      fqdn: my-container-app.salmonbeach-9c084e65.eastus2.azurecontainerapps.io
+      ipSecurityRestrictions: null
+      stickySessions: null
+      targetPort: 80
+      traffic:
+      - latestRevision: true
+        weight: 100
+      transport: Auto
+    maxInactiveRevisions: 100
+    registries: null
+    secrets: null
+    service: null
+  customDomainVerificationId: 48ED9C186E4C03FB17C9017B93FD76F33D648BC10817C5568FA147BCA3347CDB
+  delegatedIdentities: []
+  environmentId: /subscriptions/0dd281b7-e4d8-4f02-a4b4-18739bb6d62b/resourceGroups/emily-container-apps-group/providers/Microsoft.App/managedEnvironments/emily-storage-environment
+  eventStreamEndpoint: https://eastus2.azurecontainerapps.dev/subscriptions/0dd281b7-e4d8-4f02-a4b4-18739bb6d62b/resourceGroups/emily-container-apps-group/containerApps/my-container-app/eventstream
+  latestReadyRevisionName: my-container-app--3400mmg
+  latestRevisionFqdn: my-container-app--3400mmg.salmonbeach-9c084e65.eastus2.azurecontainerapps.io
+  latestRevisionName: my-container-app--3400mmg
+  managedEnvironmentId: /subscriptions/0dd281b7-e4d8-4f02-a4b4-18739bb6d62b/resourceGroups/emily-container-apps-group/providers/Microsoft.App/managedEnvironments/emily-storage-environment
+  outboundIpAddresses:
+  - 20.1.250.250
+  - 20.1.251.135
+  - 20.7.131.26
+  - 20.7.130.240
+  - 20.7.131.54
+  - 20.7.131.60
+  - 20.7.131.34
+  - 20.7.131.59
+  - 20.7.131.44
+  - 20.7.131.5
+  - 20.7.131.39
+  - 20.7.131.50
+  - 20.1.251.104
+  - 172.200.51.234
+  - 172.200.52.27
+  - 172.200.51.44
+  - 172.200.51.235
+  - 172.200.51.243
+  - 172.200.51.45
+  - 172.200.51.191
+  - 172.200.51.242
+  - 172.200.52.26
+  - 172.200.51.190
+  - 20.1.251.2
+  - 13.68.118.203
+  - 13.68.119.127
+  - 52.184.147.35
+  - 52.184.147.9
+  - 20.94.111.32
+  - 20.94.110.46
+  - 20.97.130.219
+  - 20.69.200.68
+  - 52.167.135.54
+  - 52.184.149.238
+  - 52.179.250.88
+  - 52.184.149.147
+  - 52.184.198.180
+  - 52.184.138.179
+  - 52.179.253.112
+  - 52.184.190.79
+  - 52.184.141.185
+  - 52.184.151.206
+  - 20.97.132.38
+  - 20.97.133.137
+  - 20.94.122.99
+  - 20.94.122.65
+  - 20.94.122.133
+  - 20.94.122.111
+  - 20.94.122.70
+  - 20.94.122.101
+  - 20.161.138.86
+  - 20.161.137.24
+  - 4.153.72.251
+  - 4.153.73.13
+  - 4.153.73.38
+  - 4.153.72.240
+  - 4.153.73.30
+  - 4.153.72.243
+  - 4.153.73.23
+  - 4.153.72.247
+  - 4.153.73.6
+  - 4.153.73.37
+  - 20.161.137.25
+  - 52.184.192.104
+  - 52.177.123.74
+  - 52.177.123.175
+  - 52.177.123.148
+  - 52.177.123.136
+  - 52.177.123.98
+  - 52.177.123.102
+  - 52.177.123.125
+  - 52.177.123.90
+  - 52.177.123.69
+  - 20.161.138.87
+  - 20.122.82.135
+  - 172.177.177.115
+  - 20.122.82.26
+  - 20.122.82.51
+  - 20.122.81.165
+  - 20.122.82.63
+  - 20.122.81.203
+  - 172.177.180.194
+  - 20.122.81.254
+  - 20.122.82.103
+  - 4.153.106.247
+  - 4.153.107.93
+  - 4.153.108.180
+  - 4.153.107.3
+  - 4.153.110.115
+  - 4.153.108.140
+  - 4.153.29.189
+  provisioningState: Succeeded
+  runningStatus: Running
+  template:
+    volumes: 
+    - name: my-azure-file-volume
+      storageName: emilystoragemount
+      storageType: AzureFile
+    containers:
+    - image: nginx
+      name: my-container-app
+      volumeMounts:
+      - volumeName: my-azure-file-volume
+        mountPath: /var/log/nginx
+      resources:
+        cpu: 0.5
+        ephemeralStorage: 2Gi
+        memory: 1Gi
+    initContainers: null
+    revisionSuffix: ''
+    scale:
+      maxReplicas: 1
+      minReplicas: 1
+      rules: null
+    serviceBinds: null
+    terminationGracePeriodSeconds: null
+  workloadProfileName: Consumption
+resourceGroup: emily-container-apps-group
+systemData:
+  createdAt: '2025-02-12T21:15:53.4633007'
+  createdBy: emilyli@microsoft.com
+  createdByType: User
+  lastModifiedAt: '2025-02-12T21:15:53.4633007'
+  lastModifiedBy: emilyli@microsoft.com
+  lastModifiedByType: User
+type: Microsoft.App/containerApps

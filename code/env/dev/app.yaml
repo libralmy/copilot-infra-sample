@@ -1,0 +1,73 @@
+id: /subscriptions/0dd281b7-e4d8-4f02-a4b4-18739bb6d62b/resourceGroups/atestdev-rg-infra-sample/providers/Microsoft.App/containerapps/catestavm
+identity:
+  type: None
+location: East US
+name: catestavm
+properties:
+  configuration:
+    activeRevisionsMode: Single
+    dapr: null
+    ingress:
+      additionalPortMappings: null
+      allowInsecure: false
+      clientCertificateMode: null
+      corsPolicy: null
+      customDomains: null
+      exposedPort: 0
+      external: true
+      fqdn: catestavm.whitedune-2efe0fb7.eastus.azurecontainerapps.io
+      ipSecurityRestrictions: null
+      stickySessions: null
+      targetPort: 80
+      traffic:
+      - latestRevision: true
+        weight: 100
+      transport: Auto
+    maxInactiveRevisions: 0
+    registries: null
+    secrets: null
+    service: null
+  customDomainVerificationId: 48ED9C186E4C03FB17C9017B93FD76F33D648BC10817C5568FA147BCA3347CDB
+  delegatedIdentities: []
+  environmentId: /subscriptions/0dd281b7-e4d8-4f02-a4b4-18739bb6d62b/resourceGroups/atestdev-rg-infra-sample/providers/Microsoft.App/managedEnvironments/emily-container-app-env-mount
+  eventStreamEndpoint: https://eastus.azurecontainerapps.dev/subscriptions/0dd281b7-e4d8-4f02-a4b4-18739bb6d62b/resourceGroups/atestdev-rg-infra-sample/containerApps/catestavm/eventstream
+  latestReadyRevisionName: catestavm--atmel6k
+  latestRevisionFqdn: catestavm--atmel6k.whitedune-2efe0fb7.eastus.azurecontainerapps.io
+  latestRevisionName: catestavm--atmel6k
+  managedEnvironmentId: /subscriptions/0dd281b7-e4d8-4f02-a4b4-18739bb6d62b/resourceGroups/atestdev-rg-infra-sample/providers/Microsoft.App/managedEnvironments/emily-container-app-env-mount
+  outboundIpAddresses:
+  - 135.234.254.191
+  provisioningState: Succeeded
+  runningStatus: Running
+  template:
+    containers:
+    - image: mcr.microsoft.com/azuredocs/containerapps-helloworld:latest
+      name: hello-world
+      probes: []
+      resources:
+        cpu: 0.5
+        ephemeralStorage: 2Gi
+        memory: 1Gi
+    initContainers: null
+    revisionSuffix: ''
+    scale:
+      maxReplicas: 10
+      minReplicas: null
+      rules: null
+    serviceBinds: null
+    terminationGracePeriodSeconds: null
+    volumes:
+    - name: cafileshare
+      storageName: menvstorageazurerm
+      storageType: AzureFile
+  workloadProfileName: null
+resourceGroup: atestdev-rg-infra-sample
+systemData:
+  createdAt: '2025-02-12T23:38:53.5180222'
+  createdBy: emilyli@microsoft.com
+  createdByType: User
+  lastModifiedAt: '2025-02-12T23:54:39.9626931'
+  lastModifiedBy: emilyli@microsoft.com
+  lastModifiedByType: User
+tags: {}
+type: Microsoft.App/containerApps
